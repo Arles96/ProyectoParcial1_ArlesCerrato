@@ -14,13 +14,16 @@ int randomNumber();
 string* nameCards();
 //Funcion que contiene el valor de las cartas
 int* valueCards();
+//Funciones para la eliminacion de memoria
+void removeNamesCards(string*);
+void removeValueCards(int*);
 
 int main ()
 {
   string answer="s";
   beginGame();
   string name;
-  while (answer=='s'){
+  while (answer=="s"){
     cout<<"Ingrese su nombre:" ;
     getline(cin,name);
     cin.ignore(256,'\n');
