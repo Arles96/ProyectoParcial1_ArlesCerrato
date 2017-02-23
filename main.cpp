@@ -29,6 +29,10 @@ int main ()
   getline(cin,name);
   cin.ignore(256,'\n');
   //Turno de la persona
+  while(answer=="s"){
+    int random = randomNumber();
+
+  }
   return 0;
 }
 
@@ -102,6 +106,7 @@ string* nameCards()
   cards[49]= "J diamantes";
   cards[50]= "Q diamantes";
   cards[51]= "K diamantes";
+  return cards;
 }
 
 int* valueCards()
@@ -144,4 +149,15 @@ int* valueCards()
       cards[i]=10;
     }
   }
+  return cards;
+}
+
+void removeNamesCards(sring* cards)
+{
+  delete [] cards;
+}
+
+void removeValueCards(int* cards)
+{
+  delete [] cards;
 }
