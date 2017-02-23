@@ -33,25 +33,68 @@ int main ()
   //variable para el nombre de la persona
   string name;
   cout<<"Ingrese su nombre: ";
-  getline(cin,name);
-  cin.ignore(256,'\n');
+  cin>>name;
   //variable para acumular las sumas de las cartas de la persona
   int plusPerson = 0;
+  //Boleanos para el control de las operaciones de las A
+  bool clubs= false;
+  bool diamonds = false;
+  bool hearts = false;
+  bool spades = false;
   //Turno de la persona
   while(answer=="s"){
     int random = randomNumber(person);
     person.push_back(random);
+    plusPerson += valuecard[random];
+    if (plusPerson>21) {
+      for (int i=0; i<person.size(); i++){
+        if (person[i]==0 && clubs==false) {
+          plusPerson-=10;
+          clubs=true;
+        }else if (person[i]==13 && hearts==false) {
+          plusPerson-=10;
+          hearts=true;
+        }else if (person[i]==26 && spades==false) {
+          plusPerson-=10;
+          spades=true;
+        }else if (person[i]==39 && diamonds==false) {
+          plusPerson-=10;
+          diamonds=true;
+        }
+      }
+    }else if (plusPerson==21){
+      cout<<"Usted es el ganador " << name << endl;
+      break;
+    }
+    cout<<"Su valor es mano es: " << plusPerson << endl;
+    cout<<"Su mano es: " << endl;
+    for (int i=0; i<person.size(); i++){
+      cout<<namecard[person[i]] << ", ";
+    }
+    if (plusPerson>21) {
+      cout<<"Usted a perdido " << endl;
+      break;
+    }
+    cout<< endl << "Desea mas cartas (presione s para continuar/presione cualquier letra para salir): ";
+    cin>> answer;
   }
+  delete [] valuecard;
+  delete [] namecard;
   return 0;
 }
 
 int randomNumber(vector<int> person)
 {
-  //TODO: realizar la validacion para que el numero random no se repita
   int number;
   srand(time(NULL));
   number = 1 + rand()%(52-1);
-  return number;
+  for (int i=0; i<person.size(); i++){
+    if (number==person[i]) {
+      return randomNumber(person);
+    }else{
+      return number;
+    }
+  }
 }
 
 void beginGame()
