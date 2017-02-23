@@ -9,7 +9,7 @@ using namespace std;
 //Funcion para que muestra el inicio del del juego
 void beginGame();
 //Funcion que retorna un numero aleatorio
-int randomNumber(vector<int>);
+int randomNumber(vector<int>, vector<int>);
 //Funcion que contiene los nombres de las cartas
 void nameCards(string*);
 //Funcion que contiene el valor de las cartas
@@ -72,7 +72,7 @@ int main ()
       cout<<namecard[person[i]] << ", ";
     }
     if (plusPerson>21) {
-      cout<<"Usted a perdido " << endl;
+      cout<< endl << "Usted a perdido " << endl;
       break;
     }
     cout<< endl << "Desea mas cartas (presione s para continuar/presione cualquier letra para salir): ";
@@ -83,17 +83,28 @@ int main ()
   return 0;
 }
 
-int randomNumber(vector<int> person)
+int randomNumber(vector<int> person, vector<int> pc)
 {
   int number;
   srand(time(NULL));
   number = 1 + rand()%(52-1);
+  bool seeNumberPerson = false;
+  bool seeNumberPc = false;
   for (int i=0; i<person.size(); i++){
     if (number==person[i]) {
-      return randomNumber(person);
-    }else{
-      return number;
+      seeNumberPerson=true;
+      brek;
+  }
+  for (int i =0; i<pc.size(); i++){
+    if (number==pc[i]) {
+      seeNumberPc=true;
+      break;
     }
+  }
+  if (seeNumberPc==true || seeNumberPerson==true) {
+    return randomNumber(person,pc);
+  }else{
+    return number;
   }
 }
 
