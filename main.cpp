@@ -20,15 +20,15 @@ void removeValueCards(int*);
 
 int main ()
 {
+  vector<int> person;
+  vector<int> pc;
   string answer="s";
   beginGame();
   string name;
-  while (answer=="s"){
-    cout<<"Ingrese su nombre:" ;
-    getline(cin,name);
-    cin.ignore(256,'\n');
-
-  }
+  cout<<"Ingrese su nombre:" ;
+  getline(cin,name);
+  cin.ignore(256,'\n');
+  //Turno de la persona
   return 0;
 }
 
