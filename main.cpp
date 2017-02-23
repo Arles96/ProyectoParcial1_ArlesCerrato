@@ -11,12 +11,9 @@ void beginGame();
 //Funcion que retorna un numero aleatorio
 int randomNumber();
 //Funcion que contiene los nombres de las cartas
-string* nameCards();
+void nameCards(string*);
 //Funcion que contiene el valor de las cartas
-int* valueCards();
-//Funciones para la eliminacion de memoria
-void removeNamesCards(string*);
-void removeValueCards(int*);
+void valueCards(int*);
 
 int main ()
 {
@@ -51,9 +48,8 @@ void beginGame()
   cout<<"******************************"<< endl;
 }
 
-string* nameCards()
+void nameCards(string* cards)
 {
-  string* cards = new string[52];
   cards[0] = "A trebol";
   cards[1] = "1 trebol";
   cards[2] = "2 trebol";
@@ -106,12 +102,10 @@ string* nameCards()
   cards[49]= "J diamantes";
   cards[50]= "Q diamantes";
   cards[51]= "K diamantes";
-  return cards;
 }
 
-int* valueCards()
+void valueCards(int* cards)
 {
-  int* cards = new int[52];
   int counter1=1;
   int counter2=1;
   int counter3=1;
@@ -149,15 +143,4 @@ int* valueCards()
       cards[i]=10;
     }
   }
-  return cards;
-}
-
-void removeNamesCards(sring* cards)
-{
-  delete [] cards;
-}
-
-void removeValueCards(int* cards)
-{
-  delete [] cards;
 }
