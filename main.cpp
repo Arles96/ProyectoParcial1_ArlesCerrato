@@ -9,7 +9,7 @@ using namespace std;
 //Funcion para que muestra el inicio del del juego
 void beginGame();
 //Funcion que retorna un numero aleatorio
-int randomNumber();
+int randomNumber(vector<int>);
 //Funcion que contiene los nombres de las cartas
 void nameCards(string*);
 //Funcion que contiene el valor de las cartas
@@ -17,24 +17,37 @@ void valueCards(int*);
 
 int main ()
 {
+  //Arreglo de nombre de las cartas
+  string* namecard = new string[52];
+  nameCards(namecard);
+  //Arreglo de valor de cada una de las cartas
+  int* valuecard = new int[52];
+  valueCards(valuecard);
+  //Vector que contendra la posicion de las cartas de la persona
   vector<int> person;
+  //Vector que contendra la posicion de las cartas de la computadora
   vector<int> pc;
+  //variable para la respuesta si desea la persona desea mas cartas
   string answer="s";
   beginGame();
+  //variable para el nombre de la persona
   string name;
-  cout<<"Ingrese su nombre:" ;
+  cout<<"Ingrese su nombre: ";
   getline(cin,name);
   cin.ignore(256,'\n');
+  //variable para acumular las sumas de las cartas de la persona
+  int plusPerson = 0;
   //Turno de la persona
   while(answer=="s"){
-    int random = randomNumber();
-
+    int random = randomNumber(person);
+    person.push_back(random);
   }
   return 0;
 }
 
-int randomNumber()
+int randomNumber(vector<int> person)
 {
+  //TODO: realizar la validacion para que el numero random no se repita
   int number;
   srand(time(NULL));
   number = 1 + rand()%(52-1);
