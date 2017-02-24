@@ -43,7 +43,7 @@ int main ()
   bool spades = false;
   //Turno de la persona
   while(answer=="s"){
-    int random = randomNumber(person);
+    int random = randomNumber(person, pc);
     person.push_back(random);
     plusPerson += valuecard[random];
     if (plusPerson>21) {
@@ -73,10 +73,63 @@ int main ()
     }
     if (plusPerson>21) {
       cout<< endl << "Usted a perdido " << endl;
+      cout<<"Ha ganado la pc" << endl;
       break;
     }
-    cout<< endl << "Desea mas cartas (presione s para continuar/presione cualquier letra para salir): ";
+    cout<< endl << "Desea mas cartas: ";
     cin>> answer;
+  }
+  //Turno de la pc cuando la persona no ha ganado o perdido
+  if (plusPerson<21){
+    //Acumulador de la suma de las cartas de la pc
+    int plusPc = 0;
+    //reutilizando los booleanos que controlan las operaciones de la A
+    clubs = false;
+    hearts = false;
+    diamonds = false;
+    spades = false;
+    //turno de la pc
+    while (true){
+      int random2 = randomNumber(person, pc);
+      plusPc+=valuecard[random2];
+      pc.push_back(random2);
+      if (plusPc>21){
+        for (int i=0; i<pc.size(); i++){
+          if (pc[i]==0 && clubs==false) {
+            plusPerson-=10;
+            clubs=true;
+          }else if (pc[i]==13 && hearts==false) {
+            plusPerson-=10;
+            hearts=true;
+          }else if (pc[i]==26 && spades==false) {
+            plusPerson-=10;
+            spades=true;
+          }else if (pc[i]==39 && diamonds==false) {
+            plusPerson-=10;
+            diamonds=true;
+          }
+        }
+      }
+      else if (plusPc==21) {
+        cout<<"El ganador es la pc" << endl;
+        break;
+      }
+      if (plusPc>plusPerson && plusPc<21){
+        cout<<"El ganador es la pc" << endl;
+        break;
+      }
+      if (plusPc>21){
+        cout<<"La pc ha perdido" << endl << "El ganador es " << name << endl;
+        break;
+      }
+    }
+    //Imprimiendo la sumatoria de los valores de la cartas de la pc
+    cout<<"El total de la suma de las cartas de la pc es " << plusPc << endl;
+    cout<<"Las cartas que contiene la pc es" << endl;
+    for (int i=0; i<pc.size(); i++){
+      cout<< namecard[pc[i]] << ", ";
+    }
+    cout << endl;
   }
   delete [] valuecard;
   delete [] namecard;
@@ -87,13 +140,15 @@ int randomNumber(vector<int> person, vector<int> pc)
 {
   int number;
   srand(time(NULL));
-  number = 1 + rand()%(52-1);
+  number = 1 + rand()%(51-1);
+  //booleanos que me indican si el numero random se repite
   bool seeNumberPerson = false;
   bool seeNumberPc = false;
   for (int i=0; i<person.size(); i++){
     if (number==person[i]) {
       seeNumberPerson=true;
-      brek;
+      break;
+    }
   }
   for (int i =0; i<pc.size(); i++){
     if (number==pc[i]) {
@@ -113,6 +168,10 @@ void beginGame()
   cout<<"******************************" << endl;
   cout<<"*Bienvenido al Casino Cerrato*"<< endl;
   cout<<"******************************"<< endl;
+  cout<<"****Observacion del juego*****"<< endl;
+  cout<<"*1- Presione s para continuar*"<< endl;
+  cout<<"*2- Presione otra tecla para salir"<< endl;
+  cout<<"-3- Disfrute del juego " << endl;
 }
 
 void nameCards(string* cards)
