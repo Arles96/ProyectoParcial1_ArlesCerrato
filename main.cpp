@@ -90,7 +90,8 @@ int main ()
     spades = false;
     //turno de la pc
     while (true){
-      int random2 = randomNumber(person, pc);
+      //TODO:En esta parte del codigo se encuentra el error de segmento core
+      int random2 = randomNumber(person,pc);
       plusPc+=valuecard[random2];
       pc.push_back(random2);
       if (plusPc>21){
@@ -140,7 +141,7 @@ int randomNumber(vector<int> person, vector<int> pc)
 {
   int number;
   srand(time(NULL));
-  number = 1 + rand()%(51-1);
+  number =rand()%53;
   //booleanos que me indican si el numero random se repite
   bool seeNumberPerson = false;
   bool seeNumberPc = false;
