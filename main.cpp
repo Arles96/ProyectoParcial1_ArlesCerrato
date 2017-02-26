@@ -58,23 +58,22 @@ int main ()
       random = randomNumber(person, pc);
       person.push_back(random);
       plusPerson += valuecard[random];
-      if (clubs==false || hearts==false || spades==false || diamonds==false) {
-        for (int i=0; i<person.size(); i++){
-          if (person[i]==0 && clubs==false) {
-            plusPerson-=10;
-            clubs=true;
-          }else if (person[i]==13 && hearts==false) {
-            plusPerson-=10;
-            hearts=true;
-          }else if (person[i]==26 && spades==false) {
-            plusPerson-=10;
-            spades=true;
-          }else if (person[i]==39 && diamonds==false) {
-            plusPerson-=10;
-            diamonds=true;
-          }
+      for (int i=0; i<person.size(); i++){
+        if (person[i]==0 && clubs==false && plusPerson>21) {
+          plusPerson-=10;
+          clubs=true;
+        }else if (person[i]==13 && hearts==false && plusPerson>21) {
+          plusPerson-=10;
+          hearts=true;
+        }else if (person[i]==26 && spades==false && plusPerson>21) {
+          plusPerson-=10;
+          spades=true;
+        }else if (person[i]==39 && diamonds==false && plusPerson>21) {
+          plusPerson-=10;
+          diamonds=true;
         }
-      }else if (plusPerson==21){
+      }
+      if (plusPerson==21){
         cout<< endl << "*Usted es el ganador " << name << endl;
         cout<< endl << "*Su valor en mano es: " << plusPerson << endl;
         cout<<"*Su mano es: " << endl;
@@ -106,53 +105,44 @@ int main ()
       hearts = false;
       diamonds = false;
       spades = false;
-      //Contador para dar dos cartas a la de la computadora
-      int counterpc = 0;
       //Variable que almacena los numeros aleatorios para la pc
       int random2;
+      //Entrega de la primera carta a la pc
+      random2 = randomNumber(person,pc);
+      plusPc+=valuecard[random2];
+      pc.push_back(random2);
       //turno de la pc
       while (true){
-        if (counterpc==0){
-          while (counterpc<2){
-            random2 = randomNumber(person,pc);
-            plusPc+=valuecard[random2];
-            pc.push_back(random2);
-            counterpc++;
-          }
-        }else {
-          random2 = randomNumber(person,pc);
-          plusPc+=valuecard[random2];
-          pc.push_back(random2);
-          if (clubs==false || hearts==false || spades==false || diamonds==false){
-            for (int i=0; i<pc.size(); i++){
-              if (pc[i]==0 && clubs==false) {
-                plusPerson-=10;
-                clubs=true;
-              }else if (pc[i]==13 && hearts==false) {
-                plusPerson-=10;
-                hearts=true;
-              }else if (pc[i]==26 && spades==false) {
-                plusPerson-=10;
-                spades=true;
-              }else if (pc[i]==39 && diamonds==false) {
-                plusPerson-=10;
-                diamonds=true;
-              }
-            }
-          }
-          else if (plusPc==21) {
-            cout<< endl << "*El ganador es la pc" << endl;
-            break;
-          }
-          if (plusPc>plusPerson && plusPc<21){
-            cout<< endl << "*El ganador es la pc" << endl;
-            break;
-          }
-          if (plusPc>21){
-            cout << endl <<"*La pc ha perdido" << endl << "*El ganador es " << name << endl;
-            break;
+        random2 = randomNumber(person,pc);
+        plusPc+=valuecard[random2];
+        pc.push_back(random2);
+        random2 = randomNumber(person,pc);
+        plusPc+=valuecard[random2];
+        pc.push_back(random2);
+        for (int i=0; i<pc.size(); i++){
+          if (pc[i]==0 && clubs==false && plusPc>21) {
+            plusPc-=10;
+            clubs=true;
+          }else if (pc[i]==13 && hearts==false && plusPc>21) {
+            plusPc-=10;
+            hearts=true;
+          }else if (pc[i]==26 && spades==false && plusPc>21) {
+            plusPc-=10;
+            spades=true;
+          }else if (pc[i]==39 && diamonds==false && plusPc>21) {
+            plusPc-=10;
+            diamonds=true;
           }
         }
+        if (plusPc>plusPerson && plusPc<=21){
+          cout<< endl << "*El ganador es la pc" << endl;
+          break;
+        }
+        if (plusPc>21){
+          cout << endl <<"*La pc ha perdido" << endl << "*El ganador es " << name << endl;
+          break;
+        }
+
       }
       //Imprimiendo la sumatoria de los valores de la cartas de la pc
       cout<<"*El total de la suma de las cartas de la pc es " << plusPc << endl;
