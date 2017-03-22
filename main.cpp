@@ -21,6 +21,9 @@ int main ()
 {
   //Variable de respuesta de usuario si la persona desea continuar jugando
   string answergame = "s";
+  //Contadores de los ganes de la persona y la computadora
+  int counter_person=0;
+  int counter_pc = 0;
   while(answergame=="s"){
     //Arreglo de nombre de las cartas
     string* namecard = new string[52];
@@ -80,6 +83,7 @@ int main ()
         for (int i=0; i<person.size(); i++){
           cout<<namecard[person[i]] << ", ";
         }
+        counter_person++;
         break;
       }
       cout<<"*Su valor en mano es: " << plusPerson << endl;
@@ -90,6 +94,7 @@ int main ()
       if (plusPerson>21) {
         cout<< endl << "*Usted a perdido " << endl;
         cout<< endl << "*Ha ganado la pc" << endl;
+        counter_pc++;
         break;
       }
       cout<< endl << "*Desea mas cartas: ";
@@ -136,13 +141,14 @@ int main ()
         }
         if (plusPc>plusPerson && plusPc<=21){
           cout<< endl << "*El ganador es la pc" << endl;
+          counter_pc++;
           break;
         }
         if (plusPc>21){
           cout << endl <<"*La pc ha perdido" << endl << "*El ganador es " << name << endl;
+          counter_person++;
           break;
         }
-
       }
       //Imprimiendo la sumatoria de los valores de la cartas de la pc
       cout<<"*El total de la suma de las cartas de la pc es " << plusPc << endl;
@@ -157,6 +163,11 @@ int main ()
     delete [] valuecard;
     delete [] namecard;
   }
+  cout << endl << "************************" << endl;
+  cout << "*Estadisticas del Juego*" << endl;
+  cout << "************************" << endl << endl;
+  cout << "*Partidas ganadas de la persona: " << counter_person << endl;
+  cout << "*Partidas ganadas de la pc: " << counter_pc << endl << endl;
   gameover();
   return 0;
 }
