@@ -24,6 +24,13 @@ int main ()
   //Contadores de los ganes de la persona y la computadora
   int counter_person=0;
   int counter_pc = 0;
+  beginGame();
+  //variable para el nombre de la persona
+  string name;
+  cout<<"*Ingrese su nombre: ";
+  cin>>name;
+  cout << endl;
+  //respuesta de usuario
   while(answergame=="s"){
     //Arreglo de nombre de las cartas
     string* namecard = new string[52];
@@ -37,11 +44,6 @@ int main ()
     vector<int> pc;
     //variable para la respuesta si desea la persona desea mas cartas
     string answer="s";
-    beginGame();
-    //variable para el nombre de la persona
-    string name;
-    cout<<"*Ingrese su nombre: ";
-    cin>>name;
     //variable para acumular las sumas de las cartas de la persona
     int plusPerson = 0;
     //Boleanos para el control de las operaciones de las A
@@ -56,6 +58,7 @@ int main ()
     random = randomNumber(person, pc);
     person.push_back(random);
     plusPerson += valuecard[random];
+    cout << "*TURNO DE LA PERSONA" << endl << endl;
     //Turno de la persona
     while(answer=="s"){
       random = randomNumber(person, pc);
@@ -116,6 +119,7 @@ int main ()
       random2 = randomNumber(person,pc);
       plusPc+=valuecard[random2];
       pc.push_back(random2);
+      cout << "TURNO DE LA COMPUTADORA" << endl << endl;
       //turno de la pc
       while (true){
         random2 = randomNumber(person,pc);
@@ -160,6 +164,7 @@ int main ()
     }
     cout<< endl << "*Desea continuar jugando: ";
     cin>>answergame;
+    cout << endl;
     delete [] valuecard;
     delete [] namecard;
   }
