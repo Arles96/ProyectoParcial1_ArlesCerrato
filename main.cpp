@@ -119,7 +119,7 @@ int main ()
       random2 = randomNumber(person,pc);
       plusPc+=valuecard[random2];
       pc.push_back(random2);
-      cout << "TURNO DE LA COMPUTADORA" << endl << endl;
+      cout << endl << "TURNO DE LA COMPUTADORA" << endl;
       //turno de la pc
       while (true){
         random2 = randomNumber(person,pc);
